@@ -1,5 +1,9 @@
 package PeriodBittrex;
 
-public class PeriodThirtyMinutes extends PeriodBittrex implements Period{
+import java.util.Date;
 
+public class PeriodThirtyMinutes extends PeriodFiveMinutes{
+	public PeriodThirtyMinutes(long start) {
+		super(start);
+	}
 }

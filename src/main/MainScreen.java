@@ -40,13 +40,19 @@ public class MainScreen {
 	public static boolean xvg_check = true;
 	public static boolean nxt_check = true;
 	public static boolean btc_top_check = true;
-	
+
 	public static boolean csv_check = false;
 
 	public static long interval = 60 * 1000;
 
 	public static String botToken = "";
 	public static Object chatID = null;
+
+	public static boolean check5m = false;
+	public static boolean check15m = false;
+	public static boolean check30m = false;
+	public static boolean check1h = false;
+	public static boolean check3h = false;
 
 	JFrame frmCrytocurrency = new JFrame();
 	String result = "";
@@ -57,11 +63,10 @@ public class MainScreen {
 	JButton clearBtn;
 	private JTextField textField;
 	private JLabel lblS;
-	
+
 	Timer timer;
 	private JScrollPane scrollPane_1;
 	private JTextArea textArea_message;
-	
 
 	/**
 	 * Launch the application.
@@ -103,35 +108,25 @@ public class MainScreen {
 
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frmCrytocurrency.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(24)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
-					.addGap(30))
-		);
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE).addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup().addGap(24).addComponent(scrollPane,
+						GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE).addGap(30)));
 		// JButton btnStop = new JButton("Stop");
 		// panel.add(btnStop);
 
 		// JButton btnSetting = new JButton("Setting");
 		// panel.add(btnSetting);
-//		Font font = new Font("Arial", 0, 20);
+		// Font font = new Font("Arial", 0, 20);
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 		textArea.setFont(new Font("monospaced", Font.BOLD, 18));
-		
 
 		frmCrytocurrency.getContentPane().setLayout(groupLayout);
 
@@ -154,8 +149,9 @@ public class MainScreen {
 					startButton.setEnabled(false);
 					// updateArea = new Thread(new UpdateAreaText(textArea).setBotToken(botToken));
 					// updateArea.start();
-					TimerUpdate timerUpdate = new TimerUpdate(textArea).setBotToken(botToken).setChatID(MainScreen.chatID);
-					 timer = new Timer(true);
+					TimerUpdate timerUpdate = new TimerUpdate(textArea).setBotToken(botToken)
+							.setChatID(MainScreen.chatID);
+					timer = new Timer(true);
 					timer.scheduleAtFixedRate(timerUpdate, 0, MainScreen.interval);
 
 				} catch (Exception e) {
@@ -179,13 +175,13 @@ public class MainScreen {
 		btnStop = new JButton("Stop");
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				updateArea.interrupt();
+				// updateArea.interrupt();
 				try {
 					timer.cancel();
 				} catch (Exception e2) {
 					// TODO: handle exception
-					
-				} 
+
+				}
 				startButton.setEnabled(true);
 				textField.setEnabled(true);
 				System.out.println("Stopped.");
@@ -216,7 +212,7 @@ public class MainScreen {
 		lblS = new JLabel("m");
 		lblS.setBounds(189, 17, 56, 16);
 		panel.add(lblS);
-		
+
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,24 +229,23 @@ public class MainScreen {
 				}
 				String message = textArea_message.getText();
 				Bot bot = new Bot(botToken);
-				bot.sendAlert(chatID, message);
+				bot.sendMessage(chatID, message);
 				textArea_message.setText("");
-				textArea.append(message+System.lineSeparator());
+				textArea.append(message + System.lineSeparator());
 				btnSend.setEnabled(true);
 			}
 		});
 		btnSend.setBounds(480, 66, 97, 29);
 		panel.add(btnSend);
-		
+
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(12, 48, 456, 61);
 		panel.add(scrollPane_1);
-		
+
 		textArea_message = new JTextArea();
 		scrollPane_1.setViewportView(textArea_message);
-		
+
 		SpinnerNumberModel model1 = new SpinnerNumberModel(10.0, 0.0, 999.0, 1.0);
-		
 
 	}
 }

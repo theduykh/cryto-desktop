@@ -1,5 +1,9 @@
 package PeriodBittrex;
 
-public class PeriodOneHour extends PeriodBittrex implements Period{
+import java.util.Date;
 
+public class PeriodOneHour extends PeriodFiveMinutes {
+	public PeriodOneHour(long start) {
+		super(start);
+	}
 }
