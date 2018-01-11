@@ -1,16 +1,9 @@
 package util;
 
-import java.awt.Window;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import main.MainScreen;
-import main.TimerUpdate;
 
 public class GetPrice {
 	static String url_summaries = "https://bittrex.com/api/v1.1/public/getmarketsummaries";
