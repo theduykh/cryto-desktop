@@ -6,9 +6,6 @@ import java.util.Timer;
 import PeriodBittrex.AutoUpdatePeriod;
 
 public class Test {
-	public static String botToken = "509227301:AAElZW7GVOXiLWbRgpRFvMs2XkSy9gCPz5A";
-	
-	
 	
 	public static void main(String[] args) {
 		System.out.println("Start");
