@@ -36,15 +36,14 @@ public class PeriodFiveMinutes extends PeriodBittrex {
 				continue;
 			}
 			this.data[i] = datas.get(i);
-
 		}
+
 		calculatePeriod();
 	}
 
 	public void calculatePeriod() {
 		reset();
 		boolean checkOpen = true;
-
 		for (PeriodBittrex periodBittrex : data) {
 
 			if (periodBittrex == null) {
@@ -57,14 +56,21 @@ public class PeriodFiveMinutes extends PeriodBittrex {
 			}
 
 			if (high < periodBittrex.high) {
-				System.out.println("Change high: " + high + " -> " + periodBittrex.high);
 				high = periodBittrex.high;
+				timeHigh = periodBittrex.timeHigh;
+
 			}
 			if (low > periodBittrex.low) {
-				System.out.println("Change low: " + low + " -> " + periodBittrex.low);
 				low = periodBittrex.low;
-			}
+				timeLow = periodBittrex.timeLow;
 
+			}
+			System.out.println("Update high:" + high + ", low:" + low);
+			if (timeHigh > timeLow) {
+				pump = true;
+			} else {
+				pump = false;
+			}
 			endTime = periodBittrex.endTime;
 			total += periodBittrex.total;
 			volumn += periodBittrex.volumn;

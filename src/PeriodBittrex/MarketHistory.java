@@ -14,21 +14,21 @@ public class MarketHistory {
 	public static final int FILL = 1;
 	public static final int PARTIAL_FILL = 2;
 
-	public static final SimpleDateFormat TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss");
+	public static final SimpleDateFormat TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
 	protected long id;
 	protected long timeStamp;
-	protected double price;
+	protected int price;
 	protected double quantity;
 	protected double total;
 	int type;
 	int fillType;
-	
-	
+	private JSONObject jsonData;
 
 	public MarketHistory(JSONObject json) throws JSONException {
+		jsonData = json;
 		id = json.getLong("Id");
-		price = json.getDouble("Price");
+		price = json.getInt("Price");
 		quantity = json.getDouble("Quantity");
 		total = json.getDouble("Total");
 
@@ -37,7 +37,14 @@ public class MarketHistory {
 			timeStamp = TIMESTAMP.parse(timeString).getTime();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
+			timeString = timeString.concat(".000");
+			try {
+				timeStamp = TIMESTAMP.parse(timeString).getTime();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		String typeString = json.getString("OrderType");
 		if (typeString.equals("SELL")) {
@@ -53,12 +60,13 @@ public class MarketHistory {
 			fillType = PARTIAL_FILL;
 		}
 	}
-	
+
 	public String toString() {
 		String rString = "";
-		rString = rString.concat("P:"+price+"T:"+timeStamp);
-		
-		return rString;
+		rString = rString.concat("ID:" + id + ", Price:" + price + ", Quantity:" + quantity + " Time:"
+				+ TIMESTAMP.format(new Date(timeStamp)));
+
+		return jsonData.toString();
 	}
 
 }
