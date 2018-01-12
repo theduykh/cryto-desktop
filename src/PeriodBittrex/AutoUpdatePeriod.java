@@ -24,6 +24,8 @@ public class AutoUpdatePeriod extends TimerTask {
 	// PeriodBittrex[] data = new PeriodBittrex[36];
 	ArrayList<PeriodBittrex> data;
 	int indexData = 0;
+	
+	PeriodBittrex periodBittrex;
 
 	public AutoUpdatePeriod() {
 		data = new ArrayList<>();
@@ -32,11 +34,12 @@ public class AutoUpdatePeriod extends TimerTask {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		PeriodBittrex periodBittrex = new PeriodBittrex();
+		
 		long start = 0;
 		long moc = new Date().getTime();
 		System.out.println(index);
 		if (index == 0) {
+			
 			// System.out.println(index);
 			for (int i = 0; i < 36; i++) {
 				data.add(null);
@@ -55,9 +58,12 @@ public class AutoUpdatePeriod extends TimerTask {
 			index++;
 			return;
 		}
+		if (index == 1) {
+			periodBittrex = new PeriodBittrex();
+		}
 		ArrayList<MarketHistory> dataAr = null;
 		try {
-			dataAr = getMarketHistory(moc);
+			dataAr = getMarketHistory(moc-30000);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,22 +73,26 @@ public class AutoUpdatePeriod extends TimerTask {
 
 		if (index % 5 == 0) {
 			index = 0;
-			data.add(indexData, periodBittrex);
+			data.add(0, periodBittrex);
+			data.remove(36);
 			indexData++;
 
 			fill();
 
 			if (five.checking()) {
-				System.err.println(five.getHigh() + ", " + five.getLow());
+				System.err.println("5m check: "+five.getHigh() + ", " + five.getLow()+" = "+(five.getHigh()-five.getLow()));
 			}
 			if (fifteen.checking()) {
-				System.err.println(fifteen.getHigh() + ", " + fifteen.getLow());
+//				System.err.println(fifteen.getHigh() + ", " + fifteen.getLow());
+				System.err.println("15m check: "+fifteen.getHigh() + ", " + fifteen.getLow()+" = "+(fifteen.getHigh()-fifteen.getLow()));
 			}
 			if (thirty.checking()) {
-				System.err.println(five.getHigh() + ", " + five.getLow());
+//				System.err.println(five.getHigh() + ", " + five.getLow());
+				System.err.println("30m check: "+thirty.getHigh() + ", " + thirty.getLow()+" = "+(thirty.getHigh()-thirty.getLow()));
 			}
 			if (oneHour.checking()) {
-				System.err.println(fifteen.getHigh() + ", " + fifteen.getLow());
+//				System.err.println(fifteen.getHigh() + ", " + fifteen.getLow());
+				System.err.println("1h check: "+oneHour.getHigh() + ", " + oneHour.getLow()+" = "+(oneHour.getHigh()-oneHour.getLow()));
 			}
 		}
 

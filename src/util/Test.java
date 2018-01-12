@@ -11,7 +11,9 @@ public class Test {
 		System.out.println("Start");
 		AutoUpdatePeriod update = new AutoUpdatePeriod();
 		Timer timer = new Timer(false);
-		timer.scheduleAtFixedRate(update, 0, 10000);
+		timer.scheduleAtFixedRate(update, 0, 30000);
+		
+//		System.out.println(new Date().getTime());
 	}
 	
 	public void hih() throws Exception {

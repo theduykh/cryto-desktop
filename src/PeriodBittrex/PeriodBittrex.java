@@ -48,7 +48,8 @@ public class PeriodBittrex implements Period {
 		this.open = data.get(0).price;
 		this.endTime = data.get(data.size() - 1).timeStamp;
 		this.close = data.get(data.size() - 1).price;
-
+		System.err.println("size: "+data.size());
+		System.out.println("High: "+this.high+", Low: "+this.low);
 		for (MarketHistory marketHistory : data) {
 			if (data.size() == 0) {
 				return;
@@ -67,9 +68,24 @@ public class PeriodBittrex implements Period {
 			this.volumn += marketHistory.quantity;
 			this.total += marketHistory.total;
 		}
+		System.out.println("High: "+this.high+", Low: "+this.low);
 
 		this.average = total / volumn;
 
+	}
+	
+	public void reset() {
+		startTime=0;
+		endTime=0;
+		high = 0;
+		low = 1000000;
+		volumn = 0;
+		volumnBuy = 0;
+		volumnSell = 0;
+		total = 0;
+		average = 0;
+		open = 0;
+		close = 0;
 	}
 
 	public double getHigh() {
