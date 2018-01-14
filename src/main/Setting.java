@@ -67,16 +67,16 @@ public class Setting extends JDialog {
 	public Setting() {
 		setModal(true);
 
-		setBounds(100, 100, 651, 593);
+		setBounds(100, 100, 851, 593);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 0, 0, 0, 0, 0 };
 		gbl_contentPanel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPanel.columnWeights = new double[] { 1, 4, 4, 1, 10};
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPanel.columnWeights = new double[] { 0.5, 2, 2, 1, 10 };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPanel.setLayout(gbl_contentPanel);
 		{
 			lblNewLabel_2 = new JLabel("USDT Market");
@@ -113,7 +113,7 @@ public class Setting extends JDialog {
 			gbc_chckbxNewCheckBox_10.anchor = GridBagConstraints.WEST;
 			contentPanel.add(BTC, gbc_chckbxNewCheckBox_10);
 			BTC.setSelected(MainScreen.btc_check);
-			
+
 		}
 		{
 			BTC_TOP = new JCheckBox("Top 10 volumn");
@@ -368,13 +368,13 @@ public class Setting extends JDialog {
 						MainScreen.xvg_check = XVG.isSelected();
 						MainScreen.zec_check = ZEC.isSelected();
 						MainScreen.ada_check = ADA.isSelected();
-						
+
 						MainScreen.btc_top_check = BTC_TOP.isSelected();
 						MainScreen.csv_check = exportCSV_checkbox.isSelected();
-						
+
 						MainScreen.botToken = bot_txt.getText().toString();
 						MainScreen.chatID = group_txt.getText().toString();
-						
+
 						SaveSetting.save(bot_txt.getText().toString(), group_txt.getText().toString());
 						Component component = (Component) e.getSource();
 						JDialog dialog = (JDialog) SwingUtilities.getRoot(component);

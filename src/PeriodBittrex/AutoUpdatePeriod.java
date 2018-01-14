@@ -1,12 +1,10 @@
 package PeriodBittrex;
 
-import java.awt.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -41,11 +39,14 @@ public class AutoUpdatePeriod extends TimerTask {
 	boolean muoilamphut;
 	boolean bamuoiphut;
 	boolean mottieng;
+	boolean batieng;
 
 	public AutoUpdatePeriod() {
 		muoilamphut = TestAlert.MUOILAM;
 		bamuoiphut = TestAlert.BAMUOI;
 		mottieng = TestAlert.MOTTIENG;
+		batieng = TestAlert.BATIENG;
+		
 		data = new ArrayList<>();
 	}
 
@@ -162,15 +163,15 @@ public class AutoUpdatePeriod extends TimerTask {
 					// System.err.println(five.getHigh() + ", " + five.getLow());
 
 					String pump = "";
-					if (fifteen.pump) {
+					if (thirty.pump) {
 						pump = "UP";
-						TestAlert.textArea.append("Period 30min " + pump + ": " + fifteen.getLow() + " -> "
-								+ fifteen.getHigh() + ", Dif: " + (fifteen.getHigh() - fifteen.getLow()));
+						TestAlert.textArea.append("Period 30min " + pump + ": " + thirty.getLow() + " -> "
+								+ thirty.getHigh() + ", Dif: " + (thirty.getHigh() - thirty.getLow()));
 						TestAlert.textArea.append(System.lineSeparator());
 					} else {
 						pump = "DOWN";
-						TestAlert.textArea.append("Period 30min " + pump + ": " + fifteen.getHigh() + " -> "
-								+ fifteen.getLow() + ", Dif: " + (fifteen.getHigh() - fifteen.getLow()));
+						TestAlert.textArea.append("Period 30min " + pump + ": " + thirty.getHigh() + " -> "
+								+ thirty.getLow() + ", Dif: " + (thirty.getHigh() - thirty.getLow()));
 						TestAlert.textArea.append(System.lineSeparator());
 					}
 					System.err.println("Period 30min " + pump + ": " + thirty.getHigh() + ", " + thirty.getLow() + " = "
@@ -184,15 +185,15 @@ public class AutoUpdatePeriod extends TimerTask {
 					// System.err.println(fifteen.getHigh() + ", " + fifteen.getLow());
 
 					String pump = "";
-					if (fifteen.pump) {
+					if (oneHour.pump) {
 						pump = "UP";
-						TestAlert.textArea.append("Period 1hour " + pump + ": " + fifteen.getLow() + " -> "
-								+ fifteen.getHigh() + ", Dif: " + (fifteen.getHigh() - fifteen.getLow()));
+						TestAlert.textArea.append("Period 1hour " + pump + ": " + oneHour.getLow() + " -> "
+								+ oneHour.getHigh() + ", Dif: " + (oneHour.getHigh() - oneHour.getLow()));
 						TestAlert.textArea.append(System.lineSeparator());
 					} else {
 						pump = "DOWN";
-						TestAlert.textArea.append("Period 1hour " + pump + ": " + fifteen.getHigh() + " -> "
-								+ fifteen.getLow() + ", Dif: " + (fifteen.getHigh() - fifteen.getLow()));
+						TestAlert.textArea.append("Period 1hour " + pump + ": " + oneHour.getHigh() + " -> "
+								+ oneHour.getLow() + ", Dif: " + (oneHour.getHigh() - oneHour.getLow()));
 						TestAlert.textArea.append(System.lineSeparator());
 					}
 
@@ -201,6 +202,29 @@ public class AutoUpdatePeriod extends TimerTask {
 				}
 			}
 
+			if (batieng) {
+				System.out.println("Check ba tieng");
+				if (threeHour.checking()) {
+					// System.err.println(fifteen.getHigh() + ", " + fifteen.getLow());
+
+					String pump = "";
+					if (threeHour.pump) {
+						pump = "UP";
+						TestAlert.textArea.append("Period 3hours " + pump + ": " + threeHour.getLow() + " -> "
+								+ threeHour.getHigh() + ", Dif: " + (threeHour.getHigh() - threeHour.getLow()));
+						TestAlert.textArea.append(System.lineSeparator());
+					} else {
+						pump = "DOWN";
+						TestAlert.textArea.append("Period 3hours " + pump + ": " + threeHour.getHigh() + " -> "
+								+ threeHour.getLow() + ", Dif: " + (threeHour.getHigh() - threeHour.getLow()));
+						TestAlert.textArea.append(System.lineSeparator());
+					}
+
+					System.err.println("Period 3hours" + pump + ": " + threeHour.getHigh() + ", " + threeHour.getLow()
+							+ " = " + (threeHour.getHigh() - threeHour.getLow()));
+				}
+			}
+			
 			TestAlert.textArea.setCaretPosition(TestAlert.textArea.getDocument().getLength());
 
 		}
@@ -212,6 +236,7 @@ public class AutoUpdatePeriod extends TimerTask {
 		fifteen.fillPeriod(new ArrayList<>(data.subList(0, 3)));
 		thirty.fillPeriod(new ArrayList<>(data.subList(0, 6)));
 		oneHour.fillPeriod(new ArrayList<>(data.subList(0, 12)));
+		threeHour.fillPeriod(new ArrayList<>(data.subList(0, 36)));
 		// threeHour.fillPeriod(data);
 
 	}

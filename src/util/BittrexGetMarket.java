@@ -13,9 +13,9 @@ public class BittrexGetMarket {
 
 	public static String getBTCMarkets() throws Exception {
 		StringBuilder rsString = new StringBuilder();
-		rsString.append("Bittrex: BTC Market ");
+		rsString.append("Bittrex - BTC Market ");
 		rsString.append(System.lineSeparator());
-		rsString.append("        Last     %Change");
+		rsString.append("        Last    %Change");
 		rsString.append(System.lineSeparator());
 		JSONObject dataJson = new JSONObject(HttpGet.call_me(url_summaries));
 		JSONArray array = dataJson.getJSONArray("result");
@@ -54,7 +54,7 @@ public class BittrexGetMarket {
 
 	public static String getUSDTMarkets() throws Exception {
 		StringBuilder rsString = new StringBuilder();
-		rsString.append("Bittrex: USDT Market ");
+		rsString.append("Bittrex - USDT Market ");
 		rsString.append(System.lineSeparator());
 		rsString.append("     Last   High   Low");
 		rsString.append(System.lineSeparator());
