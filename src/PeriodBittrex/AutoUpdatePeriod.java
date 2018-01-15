@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import main.TestAlert;
 import util.HttpGet;
+import util.Test;
 
 public class AutoUpdatePeriod extends TimerTask {
 
@@ -85,7 +86,7 @@ public class AutoUpdatePeriod extends TimerTask {
 			oneHour = new PeriodOneHour(start);
 			oneHour.setAlert(TestAlert.dif_mottieng).setNumData(12);
 			threeHour = new PeriodThreeHours(start);
-			threeHour.setAlert(50).setNumData(36);
+			threeHour.setAlert(TestAlert.dif_batieng).setNumData(36);
 			index++;
 			return;
 		}
